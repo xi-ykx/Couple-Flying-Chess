@@ -69,5 +69,19 @@
         </div>
     </div>
     <script src="script.js"></script>
+
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js">
+    </script>
+    <script>
+        const socket = io("http://localhost:3000");
+        socket.on('playerMove',(data) => {
+        });
+        function sendMove(position){
+            socket.emit('move',{
+                position, playerId
+            });
+        }
+    </script>
 </body>
 </html>
