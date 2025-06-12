@@ -1,0 +1,314 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+    color: #5a3e36;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.game-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* 标题样式 */
+.game-header {
+    text-align: center;
+    padding: 20px 0;
+    background: linear-gradient(90deg, #e66465, #9198e5);
+    margin: -20px -20px 20px -20px;
+    color: white;
+    border-bottom: 3px solid #ff69b4;
+}
+
+.game-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 玩家信息区域 */
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #fff5f5;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 12px;
+    transition: all 0.3s;
+    min-width: 180px;
+}
+
+.player-info.active {
+    background: linear-gradient(135deg, #ffe8e8, #ffd6d6);
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e66465, #9198e5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 24px;
+    color: white;
+}
+
+.dice-box {
+    text-align: center;
+    padding: 10px 20px;
+}
+
+#dice-result {
+    font-size: 70px;
+    margin: 10px auto;
+    transition: transform 0.5s;
+}
+
+#roll-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    transition: all 0.3s;
+}
+
+#roll-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+}
+
+#roll-btn:active {
+    transform: translateY(1px);
+}
+
+.timer {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #e66465;
+}
+
+/* 棋盘区域 */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    gap: 4px;
+    height: 80vh;
+    max-height: 600px;
+    background-color: #fef9ef;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.cell {
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.special-cell{
+    background: linear-gradient(135deg, #ffd166, #ff9a76);
+}
+
+.event-cell {
+    background: linear-gradient(135deg, #a7d7c5, #74b9ff);
+}
+
+.start-cell {
+    background: linear-gradient(135deg, #a8e6cf, #dcedc1);
+    font-size: 1.5em;
+}
+
+.end-cell {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    font-size: 1.5em;
+}
+
+.player {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.player1 {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+    color: white;
+    left: 5px;
+    top: 5px;
+}
+
+.player2 {
+    background: linear-gradient(135deg, #5c7cfa, #38d9a9);
+    color: white;
+    right: 5px;
+    bottom: 5px;
+}
+
+/* 事件卡片 */
+.event-container {
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #fff, #f8f9fa);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.event-container h3 {
+    color: #e66465;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#event-display {
+    min-height: 80px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+/* 照片墙 */
+.photo-wall {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    background: rgba(255, 250, 240, 0.8);
+    text-align: center;
+}
+
+.photo-area {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.photo-area img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 5px solid white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: #eee;
+}
+
+#add-photo {
+    background: linear-gradient(135deg, #a8e6cf, #dcedc1);
+    border: none;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    color: #5a3e36;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+#add-photo:hover {
+    transform: translateY(-3px);
+}
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 2px;
+    width: 90%; /* 相对宽度代替固定高度 */
+    max-width: 500px; /* 添加最大宽度限制 */
+    aspect-ratio: 1/1; /* 保持棋盘正方形 */
+    margin: 0 auto; /* 水平居中 */
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .game-board {
+        width: 95%;
+        max-width: 400px;
+        grid-gap: 1px; /* 缩小间隙 */
+    }
+}
+
+/* 棋盘单元格自适应 */
+.cell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(0.8vw + 5px); /* 动态字体大小 */
+}
+.modal{
+    display: none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:1000;
+    justify-content:center;
+    align-items: center;
+    background:rgba(0,0,0,0.7);
+}
+.modal-content{
+    background: #ffe6f2;
+    border-radius:15px;
+    padding: 20px;
+    width:80%;
+    max-width: 400px;
+    text-align: center;
+}
+#modal-confirm{
+    background: #ff6b6b;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:20px;
+    cursor: pointer;
+}
+.event-cell{
+    background-color: #ffeb3b !important;
+    font-weight: bold;
+}
